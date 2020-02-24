@@ -1,0 +1,30 @@
+#!/bin/bash
+#Created by Kieran Bessert
+#$2 is option flag
+#$3 is the file with usernames
+case $1 in
+	-a|--add)
+		echo "adding..."
+		while read VAR; do
+			useradd -m $VAR
+		done < $2
+		echo "Complete."
+		;;
+	-d|--delete)
+		echo "deleting..."
+		while read VAR; do
+			userdel -r $VAR
+		done < $2
+		echo "Complete."
+		;;
+	-l|--list)
+		echo "listing..."
+		while read VAR; do
+			grep $VAR /etc/passwd
+		done < $2
+		echo "Complete."
+		;;
+	*)
+		echo "Select Valid Option (-a -d -l --add --delete --list) [FILE PATH]"
+		;;
+esac
