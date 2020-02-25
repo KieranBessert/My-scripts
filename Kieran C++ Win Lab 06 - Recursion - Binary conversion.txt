@@ -20,12 +20,19 @@ int main()
     cout << "Please enter a 0 or negative value to quit the program.\n";
     cout << endl;
 
-    while (integer > 0)
+        while (integer > 0)
     {
         cin >> integer;
+        if (integer <= 1000)
+        {
+            convert(integer);
+            cout << endl << endl;
+        }
 
-        convert(integer);
-        cout << endl << endl;
+        else
+        {
+            cout << "Please enter an integer from 1 to 1000 for conversion.\n";
+        }
     }
 
     return 0;
