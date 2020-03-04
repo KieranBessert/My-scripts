@@ -1,6 +1,8 @@
-// This program takes its input from a file of numbers of type int and calculates the total number of values, 
-// the average of all numbers(as a double),
-// and finally finds the Min/Max/Avg number in the file and then writes these to the screen and as an output file.
+// This program takes its input from a file of numbers of type int and calculates;
+// - The total number of values, 
+// - The average of all numbers (as a double),
+// - The Min and Max number in the file 
+// The program then writes these to the screen and as an output file.
 // Created by Kieran Bessert 3/3/2020
 // Last edited 3/3/2020
 
@@ -35,46 +37,47 @@ int main()
         exit(1);
     }
 
-
-    int sum(0),            
-        next,           // Next number in the file, one by one from top to bottom
+    int next,           // Next number in the file, one by one from top to bottom
         count(0),       // Keeps count of how many numbers are in the file
-        min(INT_MAX),   // set variable min to the maximum number possible
-        max(INT_MIN);   // Set variable max to the minimum number possible
-    while (in_stream >> next) 
-    { 
-        if (next >> min)    // If the value being read by the program is lower than min 
+        min(0),   // set variable min to the maximum number possible
+        max(0);   // Set variable max to the minimum number possible
+    double sum(0.0);
+
+    while (in_stream >> next)
+    {
+        if (next > min)    // If the value being read by the program is lower than min 
         {
             min = next;     // Replace the value of min with the new number
         }
-        if (next << max)    // If the Value being read by the program is higher than max
+        if (next < max)    // If the Value being read by the program is higher than max
         {
             max = next;     // Replace the value of max with the new number
         }
+
         sum = sum + next;   // Add the number currently being read to the sum for avreging later
         count++;            // Increment count to track the number of values from the file
     }
 
+    cout.setf(ios::fixed);
+    cout.setf(ios::showpoint);
+    cout.precision(2);      // Set the decimal point to 2 spaces for the AVG value
 
+    cout << "The input file "       // Display the information to the screen
+        << In_File_Name << " contains " << count << " values." << endl
+        << "The smallest value is " << min << endl
+        << "The Largest value is " << max << endl
+        << "The average of all the values is " << (sum / count) << endl;
 
-
+    out_stream << "The input file "       // Place the information displayed on screen to the output file
+        << In_File_Name << " contains " << count << " values." << endl
+        << "The smallest value is " << min << endl
+        << "The Largest value is " << max << endl
+        << "The average of all the values is " << (sum / count) << endl;
 
     in_stream.close();              // Close input file
     out_stream.close();             // Close output file
     return 0;
 }
-
-/* 
-Your output to the screen will have appropriate text to indicate what the values are, 
-such as (note these are made up answers):
-
-Input file contains 26 values
-The smallest value is -4
-The largest value is 165
-The average of all the values is 74.32
-
-Print your average with 2 decimal places and the other values as integers as shown above.
-*/
 
 // input.dat values;
 /*
