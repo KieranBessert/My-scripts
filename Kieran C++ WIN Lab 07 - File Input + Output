@@ -37,19 +37,19 @@ int main()
         exit(1);
     }
 
-    int next,           // Next number in the file, one by one from top to bottom
-        count(0),       // Keeps count of how many numbers are in the file
-        min(0),   // set variable min to the maximum number possible
-        max(0);   // Set variable max to the minimum number possible
+    int next,               // Next number in the file, one by one from top to bottom
+        count(0),           // Keeps count of how many numbers are in the file
+        min(0),             // set variable min to the maximum number possible
+        max(0);             // Set variable max to the minimum number possible
     double sum(0.0);
 
     while (in_stream >> next)
     {
-        if (next > min)    // If the value being read by the program is lower than min 
+        if (next > min)     // If the value being read by the program is lower than min 
         {
             min = next;     // Replace the value of min with the new number
         }
-        if (next < max)    // If the Value being read by the program is higher than max
+        if (next < max)     // If the Value being read by the program is higher than max
         {
             max = next;     // Replace the value of max with the new number
         }
