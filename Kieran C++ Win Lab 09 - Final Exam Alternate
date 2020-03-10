@@ -40,7 +40,7 @@ int main()
     cout << "[The default file is ' input.dat ']\n" << endl;
     cin >> In_File_Name;            // The input file contains nothing but numbers of type int separated by blanks or line breaks.  
                                     // There may be positive, negative, or 0 values in the list.
-
+    cout << endl;
 
     in_stream.open(In_File_Name);   // Open input file
     if (in_stream.fail())           // Check to see if open function fails
@@ -68,41 +68,80 @@ void fill_data(ifstream &stream)
     int count1(0);
     double temp_quiz(0), temp_Lab(0), temp_Midterm(0), temp_Final(0);
 
+    cout << "First" << "\t" << "Last" << "\t" << endl;
+    cout << "Name" << "\t" << "Name" << "\t"
+        << "Average" << "\t" << "Grade" << "\t" << endl;
+
+    out_stream << "First" << "\t" << "Last" << "\t" << endl;
+    out_stream << "Name" << "\t" << "Name" << "\t"
+        << "Quiz 1" << "\t"<< "Quiz 2" << "\t" << "Quiz 3" << "\t" << "Quiz 4" << "\t" << "Quiz 5" << "\t"
+        << "Lab 1" << "\t" << "Lab 2" << "\t" << "Lab 3" << "\t" << "Lab 4" << "\t"
+        << "Midterm" << "\t" << "Final" << "\t" << "Average" << "\t" << "Grade" << "\t" << endl;
+
     while (in_stream >> student_data[count1].nameFirst >> student_data[count1].nameLast
         >> student_data[count1].quiz1 >> student_data[count1].quiz2 >> student_data[count1].quiz3 >> student_data[count1].quiz4 >> student_data[count1].quiz5
         >> student_data[count1].Lab1 >> student_data[count1].Lab2 >> student_data[count1].Lab3 >> student_data[count1].Lab4
         >> student_data[count1].Midterm >> student_data[count1].Final && count1 < 25)
     {
-        cout << student_data[count1].nameFirst << "\t";
-        cout << student_data[count1].nameLast << "\t";
-        cout << student_data[count1].quiz1 << "\t";
-        cout << student_data[count1].quiz2 << "\t";
-        cout << student_data[count1].quiz3 << "\t";
-        cout << student_data[count1].quiz4 << "\t";
-        cout << student_data[count1].quiz5 << "\t";
-        cout << student_data[count1].Lab1 << "\t";
-        cout << student_data[count1].Lab2 << "\t";
-        cout << student_data[count1].Lab3 << "\t";
-        cout << student_data[count1].Lab4 << "\t";
-        cout << student_data[count1].Midterm << "\t";
-        cout << student_data[count1].Final << "\t";
+        cout << student_data[count1].nameFirst << "\t" << student_data[count1].nameLast << "\t";
+
+        out_stream << student_data[count1].nameFirst << "\t" << student_data[count1].nameLast << "\t"
+            << student_data[count1].quiz1 << "\t" << student_data[count1].quiz2 << "\t" << student_data[count1].quiz3 << "\t"
+            << student_data[count1].quiz4 << "\t" << student_data[count1].quiz5 << "\t"
+            << student_data[count1].Lab1 << "\t" << student_data[count1].Lab2 << "\t"
+            << student_data[count1].Lab3 << "\t" << student_data[count1].Lab4 << "\t"
+            << student_data[count1].Midterm << "\t" << student_data[count1].Final << "\t";
 
         temp_quiz = student_data[count1].quiz1 + student_data[count1].quiz2 + student_data[count1].quiz3 + student_data[count1].quiz4 + student_data[count1].quiz5;
-        temp_quiz = temp_quiz / 5;
-        temp_quiz = temp_quiz * 0.25;
-        cout << temp_quiz << endl;
+        temp_quiz = (temp_quiz / 5) * 0.25;
 
         temp_Lab = student_data[count1].Lab1 + student_data[count1].Lab2 + student_data[count1].Lab3 + student_data[count1].Lab4;
-        temp_Lab = temp_Lab / 4;
-        temp_quiz = temp_quiz * 0.35;
-        cout << temp_Lab << endl;
+        temp_Lab = (temp_Lab / 4) * 0.35;
 
-        temp_Midterm = temp_Midterm * 0.2;
-        temp_Final = temp_Final * 0.2;
+        temp_Midterm = student_data[count1].Midterm * 0.2;
+        temp_Final = student_data[count1].Final * 0.2;
+
         student_data[count1].Average = temp_quiz + temp_Lab + temp_Midterm + temp_Final;
-
         cout << student_data[count1].Average << "\t";
 
+        out_stream.setf(ios::fixed);
+        out_stream.precision(2);
+        out_stream << student_data[count1].Average << "\t";
+        out_stream.precision(0);
+
+        if (student_data[count1].Average >= 90) // A
+        {
+            student_data[count1].Grade = 65;
+            out_stream << student_data[count1].Grade << endl;
+            cout << student_data[count1].Grade << endl;
+        }
+        else if (student_data[count1].Average < 90 
+            && student_data[count1].Average >= 80) // B
+        {
+            student_data[count1].Grade = 66;
+            out_stream << student_data[count1].Grade << endl;
+            cout << student_data[count1].Grade << endl;
+        }
+        else if (student_data[count1].Average < 80 
+            && student_data[count1].Average >= 70) // C
+        {
+            student_data[count1].Grade = 67;
+            out_stream << student_data[count1].Grade << endl;
+            cout << student_data[count1].Grade << endl;
+        }
+        else if (student_data[count1].Average < 70 
+            && student_data[count1].Average >= 60) // D
+        {
+            student_data[count1].Grade = 68;
+            out_stream << student_data[count1].Grade << endl;
+            cout << student_data[count1].Grade << endl;
+        }
+        else if (student_data[count1].Average < 60) // F
+        {
+            student_data[count1].Grade = 70;
+            out_stream << student_data[count1].Grade << endl;
+            cout << student_data[count1].Grade << endl;
+        }
 
         ++count1;
     }
@@ -114,59 +153,3 @@ void close_files()
     in_stream.close();              // Close input file
     out_stream.close();             // Close output file
 }
-
-
-/*
-Double grade
-if (grade >= 90) // A
-    {
-
-    }
-else if (grade < 90 && grade >= 80) // B
-    {
-
-    }
-else if (grade < 80 && grade >= 70) // C
-    {
-
-    }
-else if (grade < 70 && grade >= 60) // D
-    {
-    
-    }
-else if (grade < 60) // F
-    {
-    
-    }
-*/
-
-/*
-    cout << endl << "The input file ";
-    Your program will output the following to the screen:
-    a well-aligned table consisting of student first name,
-    last name, final average, letter grade
-
-    out_stream << "The input file ";
-    Your program will write the following to an output file:
-    a well-aligned table consisting of student first name,
-    last name, all scores from the input file in the correct 
-    order followed by the final average and letter grade.
-
-    Both your screen output and file output should have appropriate column headings.
-*/
-
-
-/*
-Include at least one function.
-
-sample input:
-
-Bob Smith 100 90 95 70 63 100 100 90 85 65 85
-Sue Jones 70 85 73 0 52 90 80 76 83 70 56
-
-sample  screen  output:
-
-First Name       Last Name               Average        Grade
-Bob                    Smith                            83.71          B
-Sue                    Jones                            67.99          D
-*/
