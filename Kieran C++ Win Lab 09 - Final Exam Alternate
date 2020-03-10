@@ -1,14 +1,29 @@
+// This program takes input from a file and outputs information to a file and the screen
+// This Program calculates final grades for a list of students.
+// It generates numeric average for each student, then assign a letter grade for each student.
 // 
 // Created by Kieran Bessert 3/7/2020
-// Last edited 3/7/2020
+// Last edited 3/10/2020
 
 #include <iostream>
 #include <fstream>  // Included to use files as I/O 
 #include <cstdlib>  // Included to use the exit() function
 using namespace std;
 
+struct Student
+{
+    string nameFirst, nameLast;
+    double quiz1, quiz2, quiz3, quiz4, quiz5;
+    double Lab1, Lab2, Lab3, Lab4, Midterm, Final;
+    double Average;
+    char Grade;
+};
+Student student_data[25];
+
 ifstream in_stream;
 ofstream out_stream;
+
+void fill_data(ifstream &stream);
 
 void close_files();
 // Precondition: Opened I/O File streams
@@ -16,6 +31,10 @@ void close_files();
 
 int main()
 {
+    cout.setf(ios::fixed);
+    cout.setf(ios::showpoint);
+    cout.precision(2);
+
     char In_File_Name[16];
     cout << "Enter the input file name (maximum of 15 characters)\n";
     cout << "[The default file is ' input.dat ']\n" << endl;
@@ -37,14 +56,58 @@ int main()
         exit(1);
     }
 
-    cout.setf(ios::fixed);              // Set the decimal point
-    cout.setf(ios::showpoint);          // to 2 spaces
-    cout.precision(2);                  // for the AVG value
+    fill_data(in_stream);
 
     close_files();                      // Calls a function to close the I/O stream files.
 
     return 0;
 }
+
+void fill_data(ifstream &stream)
+{   
+    int count1(0);
+    double temp_quiz(0), temp_Lab(0), temp_Midterm(0), temp_Final(0);
+
+    while (in_stream >> student_data[count1].nameFirst >> student_data[count1].nameLast
+        >> student_data[count1].quiz1 >> student_data[count1].quiz2 >> student_data[count1].quiz3 >> student_data[count1].quiz4 >> student_data[count1].quiz5
+        >> student_data[count1].Lab1 >> student_data[count1].Lab2 >> student_data[count1].Lab3 >> student_data[count1].Lab4
+        >> student_data[count1].Midterm >> student_data[count1].Final && count1 < 25)
+    {
+        cout << student_data[count1].nameFirst << "\t";
+        cout << student_data[count1].nameLast << "\t";
+        cout << student_data[count1].quiz1 << "\t";
+        cout << student_data[count1].quiz2 << "\t";
+        cout << student_data[count1].quiz3 << "\t";
+        cout << student_data[count1].quiz4 << "\t";
+        cout << student_data[count1].quiz5 << "\t";
+        cout << student_data[count1].Lab1 << "\t";
+        cout << student_data[count1].Lab2 << "\t";
+        cout << student_data[count1].Lab3 << "\t";
+        cout << student_data[count1].Lab4 << "\t";
+        cout << student_data[count1].Midterm << "\t";
+        cout << student_data[count1].Final << "\t";
+
+        temp_quiz = student_data[count1].quiz1 + student_data[count1].quiz2 + student_data[count1].quiz3 + student_data[count1].quiz4 + student_data[count1].quiz5;
+        temp_quiz = temp_quiz / 5;
+        temp_quiz = temp_quiz * 0.25;
+        cout << temp_quiz << endl;
+
+        temp_Lab = student_data[count1].Lab1 + student_data[count1].Lab2 + student_data[count1].Lab3 + student_data[count1].Lab4;
+        temp_Lab = temp_Lab / 4;
+        temp_quiz = temp_quiz * 0.35;
+        cout << temp_Lab << endl;
+
+        temp_Midterm = temp_Midterm * 0.2;
+        temp_Final = temp_Final * 0.2;
+        student_data[count1].Average = temp_quiz + temp_Lab + temp_Midterm + temp_Final;
+
+        cout << student_data[count1].Average << "\t";
+
+
+        ++count1;
+    }
+}
+
 
 void close_files()
 {
@@ -53,51 +116,47 @@ void close_files()
 }
 
 
+/*
+Double grade
+if (grade >= 90) // A
+    {
 
+    }
+else if (grade < 90 && grade >= 80) // B
+    {
+
+    }
+else if (grade < 80 && grade >= 70) // C
+    {
+
+    }
+else if (grade < 70 && grade >= 60) // D
+    {
+    
+    }
+else if (grade < 60) // F
+    {
+    
+    }
+*/
+
+/*
+    cout << endl << "The input file ";
+    Your program will output the following to the screen:
+    a well-aligned table consisting of student first name,
+    last name, final average, letter grade
+
+    out_stream << "The input file ";
+    Your program will write the following to an output file:
+    a well-aligned table consisting of student first name,
+    last name, all scores from the input file in the correct 
+    order followed by the final average and letter grade.
+
+    Both your screen output and file output should have appropriate column headings.
+*/
 
 
 /*
-Write a program to calculate final grades for a list of students. 
-Each student has 5 quizzes that count for 25% of the final average, 
-4 labs that count for 35% of the final average, 
-a midterm exam that counts for 20% of the final average, 
-and a final exam that counts for 20% of the average.  
-See the example below for a sample input file.
-
-Your program will read in all data from a text file and calculate the 
-numeric average for each student and then assign a letter grade for each student.  
-For simplicity, we will use the standard 10 point scale with 90+ assigned an A,
-80 to less than 90 a B, and so on.  
-Calculate your averages to 2 decimal places.  
-All input scores will be on a 100 point scale and will be given in the file as integers 
-(although you may read them in as something else if desired).  
-Each row of the input file will contain data for one student, 
-consisting of the student's first and last name, 
-followed by the 5 quizzes, 
-the 4 labs, 
-the midterm score, 
-and the final exam score, 
-with one or more spaces between items. 
-You may assume that there are no errors in the input file.
-
-Your program will output the following to the screen:
-a well-aligned table consisting of student first name, 
-last name, final average, letter grade
-
-Your program will write the following to an output file:
-a well-aligned table consisting of student first name, 
-last name, 
-all scores from the input file in the correct order followed by the final average and letter grade.
-
-Both your screen output and file output should have appropriate column headings.
-
-There will not be more than 25 students.  
-You must use an array of structs to hold the student information. 
-Do not use any data structures that have not been covered in this class. 
-Your program should be written in a way such that you could 
-easily adjust the number of quizzes and/or labs.  
-Use relative paths and name your input file "input.txt" and your output file "output.txt".  
-Be sure to include error checking on the opening of the files. 
 Include at least one function.
 
 sample input:
