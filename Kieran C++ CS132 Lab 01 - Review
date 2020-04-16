@@ -95,13 +95,13 @@ void rdPerson(ifstream& inStream, PII& p1)
             << "lastname\n" << "firstname\n" << "last 4 social security numbers\n" 
             << "email address\n" << endl;
         cin >> p1.nameLast >> p1.nameFirst >> p1.last4ssn >> p1.emailAddress;
-        // Fills the struct to be processed by the user console.
+                // Fills the struct to be processed by the user console.
         makeUC(p1);
     }
     else if (choice == 1)
     {
         inStream >> p1.last4ssn >> p1.nameFirst >> p1.nameLast >> p1.emailAddress;
-        // Fills the struct to be processed by the in file stream.
+                // Fills the struct to be processed by the in file stream.
         makeUC(p1);
     }
     else
@@ -135,7 +135,7 @@ void wtPerson(ofstream& outStream, PII& p1)
     {
         outStream << p1.nameLast << ", " << p1.nameFirst <<
             ":" << p1.last4ssn << ":" << p1.emailAddress << endl;
-    }                                               // Outputs to the opened output file if selected.
+    }           // Outputs to the opened output file if selected.
     else
     {
         return;
