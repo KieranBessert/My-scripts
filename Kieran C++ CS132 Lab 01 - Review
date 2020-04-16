@@ -108,23 +108,16 @@ void rdPerson(ifstream& inStream, PII& p1)
     {
         exit(1);
     }
-
 }
 
 void makeUC(PII& p1)
 {
-    string firstTemp, lastTemp;                     // Temp Variables for processing
-
-        firstTemp = p1.nameFirst, lastTemp = p1.nameLast;
-
-        for (int i = 0; i < firstTemp.size(); i++)
-            firstTemp[i] = toupper(firstTemp[i]);   // Letter by letter capitalization for first name.
-        p1.nameFirst = firstTemp;                   // Replaces the data in the struct with the capitalized versions.
-
-        for (int i = 0; i < lastTemp.size(); i++)
-            lastTemp[i] = toupper(lastTemp[i]);     // Letter by letter capitalization for last name.
-        p1.nameLast = lastTemp;                     // Replaces the data in the struct with the capitalized versions.
-
+        for (int i = 0; i < p1.nameFirst.size(); i++)
+             p1.nameFirst[i] = toupper(p1.nameFirst[i]);
+                // Letter by letter capitalization for first name.
+        for (int i = 0; i < p1.nameLast.size(); i++)
+            p1.nameLast[i] = toupper(p1.nameLast[i]);
+                // Letter by letter capitalization for last name.
 }
 
 void wtPerson(ofstream& outStream, PII& p1)
