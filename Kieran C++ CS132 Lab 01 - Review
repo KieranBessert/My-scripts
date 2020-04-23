@@ -5,9 +5,10 @@
 // then outputs the data to either a file or console.
 //
 // coded by Kieran Bessert 4/14/2020
-// Last edited on 4/16/2020
+// Last edited on 4/22/2020
 
 #include <iostream>
+#include <cstdlib>          // Included for use of exit() function
 #include <fstream>          // Included to use files as I/O 
 #include <string>           // This provides support for C++ string "objects"
 using namespace std;
@@ -16,7 +17,7 @@ struct PII                  // Declare the struct that will contain the informat
 {
     int last4ssn = 0;
     string nameFirst, nameLast, emailAddress;
-};
+}person1 = { 1234, "Jane", "Doe", "jdoe@gmail.com" };
 
 ifstream in_stream;         // Declare the input file stream
 ofstream out_stream;        // Declare the output file stream
@@ -43,12 +44,10 @@ void wtPerson(ofstream& outStream, PII& p1);
 
 int main()
 {
-    PII person1 = { 1234, "Jane", "Doe", "jdoe@gmail.com" };
     string In_File_Name;
     int choice;                     // Variable for loop decisions
 
     cout << "WELCOME TO THE NAME CAPITALIZER!!!\n" << endl;
-
     cout << "Enter the input file name.\n";
     cout << "[The default file is ' persons.txt ']\n" << endl;
     cin >> In_File_Name;            // The input file that contains peoples information
@@ -86,7 +85,7 @@ void rdPerson(ifstream& inStream, PII& p1)
 {
     int choice(2);
     cout << endl << "Do you wish to enter information MANUALLY or from a FILE?\n"
-        << "Press 2 for MANUALLY\n" << "Press 1 for FILE\n" << "Perss 0 to EXIT\n" << endl;
+        << "Press 2 for MANUALLY\n" << "Press 1 for FILE\n" << "Press 0 to EXIT\n" << endl;
     cin >> choice;
 
     if (choice == 2)
@@ -106,7 +105,7 @@ void rdPerson(ifstream& inStream, PII& p1)
     }
     else
     {
-        exit(1);
+        exit(0);
     }
 }
 
@@ -141,7 +140,6 @@ void wtPerson(ofstream& outStream, PII& p1)
         return;
     }
 }
-
 
 /* EXAMPLE ' persons.txt ' FILE */
 /*
