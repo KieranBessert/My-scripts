@@ -8,6 +8,6 @@ number2=int(input("Please enter another number!"))
 print("you have entered;")
 print(number1, " for number 1")
 print("and")
-print(number2, "for number 2")
+print(number2, " for number 2")
 product = number1 * number2
 print("The PRODUCT of these numbers is ", product)
