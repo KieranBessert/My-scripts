@@ -125,20 +125,10 @@ void wtPerson(ofstream& outStream, PII& p1)
 
     cout << endl << p1.nameLast << ", " << p1.nameFirst <<
         ":"<< p1.last4ssn << ":" << p1.emailAddress << endl;
-    cout << endl << "Would you like to output to a file?\n" 
-        << "Press 1 for YES\n"
-        << "Press 0 for NO\n" << endl;
-    cin >> choice;
 
-    if (choice == 1)
-    {
-        outStream << p1.nameLast << ", " << p1.nameFirst <<
+    outStream << p1.nameLast << ", " << p1.nameFirst <<
             ":" << p1.last4ssn << ":" << p1.emailAddress << endl;
-    }           // Outputs to the opened output file if selected.
-    else
-    {
-        return;
-    }
+           // Outputs to the opened output file, comment out to remove functionality.
 }
 
 /* EXAMPLE ' persons.txt ' FILE */
