@@ -1,5 +1,5 @@
 #Coded by Kieran Bessert on 4/23/2020
-#Last Edited on 4/30/2020
+#Last Edited on 4/23/2020
 #The following code will ask the user for two numbers, then multiply them.
 
 print("WELCOME TO THE MULTIPLIER!!")
