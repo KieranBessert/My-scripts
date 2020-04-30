@@ -1,10 +1,10 @@
 // This program is used to manage an inventory of vehicles from a file on the local drive.
 // Coded by Kieran Bessert	4/26/2020
-// Last edited 4/30/2020
+// Last edited  4/30/2020
 
 #include <iostream>
-#include <fstream>		                        // File I/O
-#include <string>		                        // use of Strings
+#include <fstream>                              // File I/O
+#include <string>                               // use of Strings
 #include <cstdlib>                              // Included for use of exit() function
 using namespace std;
 
@@ -31,9 +31,21 @@ private:
 };
 
 void viewInv1();
+// This function reads input data from a file and displays it on screen
+// PRECONTDITION: A file of tab seperated values of type STRING, DOUBLE, & INT
+// POSTCONDITION: cout statement of the VIN, PRICE, & WEEKS ON LOT data contained in the file
 void addToInv2();
+// This function appends information to vehicle inventory output file from user input
+// PRECONTDITION: New VIN, PRICE, & WEEKS ON LOT data required for inputing by user
+// POSTCONDITION: An append output file with the entered data, tab seperated
 void updateInv3();
-void ageInventory(Vehicle&);
+// This function updates the full list of vehicle inventory's PRICE and WEEKS ON LOT, one VIN at a time
+// PRECONTDITION: Vehicle Inventory input file and New PRICE & WEEKS ON LOT data for user input
+// POSTCONDITION: an output file of the VINs and new values if aged or PRICE lowered
+void ageInventory(Vehicle&);                    // DEPRECATED FUNCTION
+// This function that ages an intire vehicle inventory by 1 week
+// PRECONTDITION: A file of tab seperated values of type STRING, DOUBLE, & INT
+// POSTCONDITION: an output file of the VIN & PRICE of each vehicle with the WEEKS ON LOT data increased by 1
 
 int main()
 {
@@ -153,7 +165,7 @@ void viewInv1()                                 // The 1) View Inventory menu ch
 }
 
 void addToInv2()                                // The 2) New Entry menu choice
-{                                               // Appends information to vehicle inventory file
+{
     ofstream out_stream;                        // Declare the output file
     string Out_File_Name;                       // Variable for storing name of output file
     string vin;
@@ -231,8 +243,8 @@ void updateInv3()                               // The 3) Update Entry menu choi
             vehicle1.updateWeeksOnLot(weeksOnLotTemp);
             cout << vehicle1.getVin() << " Weeks on lot Updated\n\n";
         }
-        if (priceTemp >= vehicle1.getPrice())
-        {                                       // Checks and updates weeks on lot one VIN at a time
+        if (priceTemp <= vehicle1.getPrice())
+        {                                       // Checks and updates price one VIN at a time
             vehicle1.updatePrice(priceTemp);
             cout << vehicle1.getVin() << " Price Updated\n\n";
         }
@@ -243,7 +255,7 @@ void updateInv3()                               // The 3) Update Entry menu choi
     out_stream.close();
 }
 
-void ageInventory(Vehicle& x)               // Depricated Function
+void ageInventory(Vehicle& x)               // DEPRECATED FUNCTION
 {
     int localI = x.getWeeksOnLot();         // Accessor Function
     localI += 1;                            // Age by 1 week on lot
