@@ -45,9 +45,9 @@ void updateInv3();
 // PRECONTDITION: Vehicle Inventory input file and New PRICE & WEEKS ON LOT data for user input
 // POSTCONDITION: an output file of the VINs and new values if aged or PRICE lowered
 void searchInv4();
-// This function 
-// PRECONTDITION: 
-// POSTCONDITION: 
+// This function searches Vehicle inventory for a VIN value entered by the user
+// PRECONTDITION: The first 3 values of VIN data a user wishes to search invetory for
+// POSTCONDITION: If match is found, data printed to screen, otherwise the user is informed of failure.
 void ageInventory(Vehicle&);                    // DEPRECATED FUNCTION
 // This function that ages an intire vehicle inventory by 1 week
 // PRECONTDITION: A file of tab seperated values of type STRING, DOUBLE, & INT
@@ -239,7 +239,8 @@ void updateInv3()                               // The 3) Update Entry menu choi
     if (out_stream.fail())                      // Checks to see if open function fails
     {
         cout << "Output file opening failed.\n";
-        exit(1);
+        in_stream.close();
+        return;
     }
 
     while (vehicle1.rdVehicle(in_stream) == true)// Loop until all entries read
