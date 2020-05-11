@@ -29,7 +29,7 @@ public:
 
     friend bool compareModel(Vehicle& car1, Vehicle& car2);// Friend function compare base model
     friend bool operator ==(Vehicle& car1, Vehicle& car2);// Friend function compare base model
-    friend void operator ++(Vehicle& car1);  // Friend function increment WEEKS ON LOT
+    friend void operator ++(Vehicle& car1);     // Friend function increment WEEKS ON LOT
 private:
     void getBaseModel(string&);                 // Internal Private Helper Function
     string baseModel;                           // The first 3 characters of the VIN
@@ -41,9 +41,8 @@ private:
 
 /***********************CONSTANT VARIABLES***********************/
 const string IN_FILE_NAME = "vehicles.txt";     // Constant variable for storing name of the input file
-const string OUT_FILE_NAME = "output.txt";      // Constant variable for storing name of the output file // UNUSED
 const int SIZE_OBJ_ARRAY = 20;                  // The size of array OF objects
-const int SIZE_CHAR_ARRAY = 9;                 // the size of array WITHIN each object
+const int SIZE_CHAR_ARRAY = 9;                  // the size of array WITHIN each object
 
 /***********************NON-MEMBER FUNCTIONS***********************/
 void viewInv1(Vehicle& v);
