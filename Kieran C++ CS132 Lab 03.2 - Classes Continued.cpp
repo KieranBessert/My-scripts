@@ -41,7 +41,7 @@ private:
 
 /***********************CONSTANT VARIABLES***********************/
 const string IN_FILE_NAME = "vehicles.txt";     // Constant variable for storing name of the input file
-const string OUT_FILE_NAME = "output.txt";      // Constant variable for storing name of the output file
+const string OUT_FILE_NAME = "output.txt";      // Constant variable for storing name of the output file // UNUSED
 const int SIZE_OBJ_ARRAY = 20;                  // The size of array OF objects
 const int SIZE_CHAR_ARRAY = 9;                 // the size of array WITHIN each object
 
@@ -134,7 +134,7 @@ int main()
         case 0:
             cout << "THANK YOU FOR USING THE VEHICLE INVENTORY DATA PROGRAM!!!\n\nGOODBYE!\n\n";
             in_stream.close();
-            out_stream.open(OUT_FILE_NAME);     // Open the output file appending
+            out_stream.open(IN_FILE_NAME);      // Open the output file appending
             if (out_stream.fail())              // Checks to see if open function fails
             {
                 cout << "Output file opening failed.\n";
