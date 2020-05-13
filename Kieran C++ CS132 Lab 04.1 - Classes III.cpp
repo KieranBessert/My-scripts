@@ -289,7 +289,7 @@ void addToInv2(Vehicle v[], int& count)         // The 2) New Entry menu choice
     }
 }
 
-void updateInv3(Vehicle* pointer, int max)           // The 3) Update Entry menu choice.
+void updateInv3(Vehicle* pointer, int max)      // The 3) Update Entry menu choice.
 {
     std::cout << std::fixed;
     std::cout << std::setprecision(2);
@@ -316,7 +316,7 @@ void searchInv4(Vehicle v[], string& searchForVIN)// The 4) Search Inventory men
 
     for (int ix = 0; ix < MAX_SIZE_INV; ix++)
     {
-        if (v[ix].getVin() == "?")             // Check for empty objects in the array
+        if (v[ix].getVin() == "?")              // Check for empty objects in the array
         {
             return;
         }
@@ -324,9 +324,9 @@ void searchInv4(Vehicle v[], string& searchForVIN)// The 4) Search Inventory men
         {
             v[ix].wrtVehicle(cout);
         }
-        //if (v1[ix].getVin().substr(0, 3)==searchForVIN)
+        //if (v[ix].getVin().substr(0, 3)==searchForVIN)
         //{
-        //    v1[ix].wrtVehicle(cout);
+        //    v[ix].wrtVehicle(cout);
         //}
     }
 }
