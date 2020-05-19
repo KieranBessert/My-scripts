@@ -1,6 +1,6 @@
 // This program is used to manage an inventory of vehicles from a file on the local drive.
 // Coded by Kieran Bessert 4/26/2020
-// Last edited 5/18/2020
+// Last edited 5/19/2020
 
 #include <iostream>
 #include <fstream>                              // File I/O
@@ -8,7 +8,6 @@
 #include <cstdlib>                              // use of exit() function
 #include <iomanip>                              // use of setprecision()
 using namespace std;
-
 /***********************CLASS***********************/
 class Vehicle
 {
@@ -41,12 +40,10 @@ private:
     int options;                                // How many options each vehicle has
     string* optionsPtr;                         // Points to the dynamic array
 };
-
 /***********************CONSTANT VARIABLES***********************/
 const string IN_FILE_NAME = "vehicles_db.txt";  // Constant variable for storing name of the input file
 const int MAX_SIZE_INV = 20;                    // The size of array OF objects
 const int MAX_SIZE_VIN = 9;                     // the size of array WITHIN each object
-
 /***********************NON-MEMBER FUNCTIONS***********************/
 void viewInv1(Vehicle* , int max);
 // This function reads input data from an array and displays it on screen
@@ -79,14 +76,12 @@ int main()
     string vinSearch;                           // Variable for storing VIN of desired vehicle
     int arrayCount(0);                          // For keeping track of the used arrays
     int menuChoice(0);                          // For user interaction
-
     in_stream.open(IN_FILE_NAME);               // Open input file
     if (in_stream.fail())                       // Check to see if open function fails
     {
         cout << "Input file opening failed.\nFile does not exist.\n";
         return(-1);
     }
-
     for (int ix = 0; ix < MAX_SIZE_INV; ix++)   // Fill the object arrays completely
     {
         vehicles[ix].rdVehicle(in_stream);
@@ -96,7 +91,6 @@ int main()
         }
         arrayCount++;                           // Count all filled objects in the array
     }
-
     cout << "WELCOME TO THE VEHICLE INVENTORY DATA PROGRAM!!!\n";
     vPtr = &vehicles[0];                        // Set pointer to the first element of the vehicles array
     do {                                        // Main loop of program
@@ -145,7 +139,6 @@ int main()
     } while (true);
     return(0);
 }
-
 /***********************MEMBER FUNCTIONS***********************/
 bool Vehicle::rdVehicle(istream& rdS)           // Reads data from the stream
 {
@@ -260,14 +253,13 @@ void Vehicle::getBaseModel(string& vin)
 {
     baseModel = vin.substr(0, 3);
 }
-
 /***********************NON-MEMBER FUNCTIONS***********************/
-
 void viewInv1(Vehicle* pointer, int max)        // The 1) View Inventory menu choice
 {
     std::cout << std::fixed;
     std::cout << std::setprecision(2);
     Vehicle* lastVehiclePtr = pointer + (max - 1);
+    cout << "VIN\t\tPRICE\t\tWEEKS\tOPTIONS\n"; // Table Formatting
     for (; pointer <= lastVehiclePtr; pointer++)// Loop until all Objects Accessed
     {
         if ((*pointer).getVin() == "?")
@@ -278,7 +270,6 @@ void viewInv1(Vehicle* pointer, int max)        // The 1) View Inventory menu ch
         //pointer->wrtVehicle(cout);
     }
 }
-
 void addToInv2(Vehicle v[], int& count)         // The 2) New Entry menu choice
 {
     std::cout << std::fixed;
@@ -291,7 +282,6 @@ void addToInv2(Vehicle v[], int& count)         // The 2) New Entry menu choice
         cout << "Inventory is full.\n";
         return;
     }
-
     cout << "9 Digit VIN of the vehicle: ";     // Prompt for new entry data
     cin >> vin;
     makeUC(vin);                                // Ensure data entered matches inventpory
@@ -300,9 +290,9 @@ void addToInv2(Vehicle v[], int& count)         // The 2) New Entry menu choice
         cout << "Invalid VIN entered.\n";
         return;
     }
-
     cout << "Do you know the price of the vehicle?\n1) YES\n0) NO\n\n\tChoice: ";
     cin >> choice;
+    cout << "VIN\t\tPRICE\t\tWEEKS\tOPTIONS\n"; // Table Formatting
     if (choice == 0)
     {
         v[count].updateVin(vin);
@@ -325,13 +315,12 @@ void addToInv2(Vehicle v[], int& count)         // The 2) New Entry menu choice
         return;
     }
 }
-
 void updateInv3(Vehicle* pointer, int max)      // The 3) Update Entry menu choice.
 {
     std::cout << std::fixed;
     std::cout << std::setprecision(2);
-   
     Vehicle* lastVehiclePtr = pointer + (max - 1);
+    cout << "VIN\t\tPRICE\t\tWEEKS\tOPTIONS\n"; // Table Formatting
     for (; pointer <= lastVehiclePtr; pointer++)// Loop until all Objects Accessed
     {
         if ((*pointer).getVin() == "?")
@@ -342,37 +331,39 @@ void updateInv3(Vehicle* pointer, int max)      // The 3) Update Entry menu choi
         (*pointer).wrtVehicle(cout);
         //pointer->wrtVehicle(cout);
     }
-
 }
-
 void searchInv4(Vehicle v[], string& searchForVIN)// The 4) Search Inventory menu choice.
 {
     std::cout << std::fixed;
     std::cout << std::setprecision(2);
     Vehicle searchVehicle(searchForVIN);
     int count(0);
-
+    if (searchForVIN.length() != 3)
+    {
+        cout << searchForVIN << "\tIs not a valid 3 characters.\n\n";
+        return;
+    }
+    cout << "VIN\t\tPRICE\t\tWEEKS\tOPTIONS\n"; // Table Formatting
     for (int ix = 0; ix < MAX_SIZE_INV; ix++)
     {
-        if (v[ix].getVin() == "?")              // Check for empty objects in the array
-        {
-            return;
-        }
         if (compareModel(v[ix], searchVehicle))
         {
             v[ix].wrtVehicle(cout);
+            count++;
         }
         //if (v[ix].getVin().substr(0, 3)==searchForVIN)
         //{
         //    v[ix].wrtVehicle(cout);
         //}
     }
+    if (count == 0)
+    {
+        cout << "\nNo matches found in inventory for VIN\t" << searchForVIN << " .\n\n";
+    }
 }
-
 void makeUC(string& vin)                        // Uppercases the first 3 letters of string input
 {
     int count = (int)vin.length();
-
     for (; count-- > 0;)
     {
         vin[count] = toupper(vin[count]);
