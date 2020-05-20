@@ -370,7 +370,7 @@ void makeUC(string& vin)                        // Uppercases the first 3 letter
     }
 }
 
-/* EXAMPLE ' vehicles.txt ' FILE */
+/* EXAMPLE ' vehicles_db.txt ' FILE */
 /*
 RGLK27844	14800	8	0
 RLVY26499	17450	10	2
