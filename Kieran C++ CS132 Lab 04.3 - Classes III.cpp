@@ -16,8 +16,6 @@ const int MAX_SIZE_VIN = 9;                             // the size of array WIT
 class Vehicle
 {
 public:
-    //bool rdVehicle(istream&);
-    //void wrtVehicle(ostream&) const;
     string getVin();                                    // Vin Accessor Function
     void updateVin(string);                             // Vin Mutator Function
     double getPrice();                                  // Price Accessor Function
