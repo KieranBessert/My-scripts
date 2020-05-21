@@ -16,8 +16,8 @@ const int MAX_SIZE_VIN = 9;                             // the size of array WIT
 class Vehicle
 {
 public:
-    bool rdVehicle(istream&);
-    void wrtVehicle(ostream&) const;
+    //bool rdVehicle(istream&);
+    //void wrtVehicle(ostream&) const;
     string getVin();                                    // Vin Accessor Function
     void updateVin(string);                             // Vin Mutator Function
     double getPrice();                                  // Price Accessor Function
@@ -45,19 +45,19 @@ private:
     void getBaseModel(string&);                         // Internal Private Helper Function
 };
 /***********************NON-MEMBER FUNCTIONS***********************/
-void viewInv1(Vehicle* , int max);
+void viewInv1(Vehicle* , int max, ostream& oS);
 // This function reads input data from an array and displays it on screen
 // PRECONTDITION: An array of objects of type Vehicle
 // POSTCONDITION: cout statement of the VIN, PRICE, & WEEKS ON LOT data contained in each object
-void addToInv2(Vehicle v[], int& count);
+void addToInv2(Vehicle v[], int& count, ostream& oS);
 // This function edits the last empty object in an array to fill its data
 // PRECONTDITION: An empty object in the array, and New VIN, PRICE, WEEKS ON LOT data required for inputing by user
 // POSTCONDITION: An object in the array containing this information, and the array count incremented
-void updateInv3(Vehicle* , int max);
+void updateInv3(Vehicle* , int max, ostream& oS);
 // This function increments all filled array's WEEKS ON LOT
 // PRECONTDITION: An array of objects with VIN data
 // POSTCONDITION: All filled arrays with their WEEKS ON LOT incremented by 1
-void searchInv4(Vehicle v[], string& searchForVIN);
+void searchInv4(Vehicle v[], string& searchForVIN, ostream& oS);
 // This function searches the filled array for a VIN value entered by the user
 // PRECONTDITION: A filled array of VIN data and the first 3 values of VIN data a user wishes to search for
 // POSTCONDITION: If match is found in the array, that objects data printed to screen
@@ -73,6 +73,7 @@ int main()
     Vehicle vehicles[MAX_SIZE_INV];                     // Declare object array
     Vehicle* vPtr;                                      // Declare pointer of type Vehicle
     string vinSearch;                                   // Variable for storing VIN of desired vehicle
+    string exitChoice;                                  // For Exit Program confirmation
     int arrayCount(0);                                  // For keeping track of the used arrays
     int menuChoice(0);                                  // For user interaction
     in_stream.open(IN_FILE_NAME);                       // Open input file
@@ -102,14 +103,13 @@ int main()
         switch (menuChoice)
         {
         case 1:                                         // View contents of input file
-            viewInv1(vPtr, MAX_SIZE_INV);
+            viewInv1(vPtr, MAX_SIZE_INV, cout);
             break;
         case 2:                                         // Add entry to input file
-            addToInv2(vehicles, arrayCount);
-            arrayCount++;
+            addToInv2(vehicles, arrayCount, cout);
             break;
         case 3:                                         // Edit Entry of input file
-            updateInv3(vPtr, MAX_SIZE_INV);
+            updateInv3(vPtr, MAX_SIZE_INV, cout);
             cout << "\nWEEKS ON LOT has been updated for each vehicle in inventory;\n\n";
             break;
         case 4:                                         // Search input file
@@ -118,7 +118,7 @@ int main()
             cin >> vinSearch;
             cout << endl;
             makeUC(vinSearch);
-            searchInv4(vehicles, vinSearch);
+            searchInv4(vehicles, vinSearch, cout);
             break;
         case 5:
             cout << "\n\nEnter the positions of the 2 vehicles to be swapped.\n"
@@ -140,22 +140,35 @@ int main()
                 << arrayCount << " or LESS\n" << "\n\nTry Again.\n" ;
             break;
         case 0:
-            cout << "THANK YOU FOR USING THE VEHICLE INVENTORY DATA PROGRAM!!!\n\nGOODBYE!\n\n";
-            in_stream.close();
-            out_stream.open(IN_FILE_NAME);              // Open the output file appending
-            if (out_stream.fail())                      // Checks to see if open function fails
+            cout << "ARE YOU SURE YOU WANT TO EXIT & SAVE CHANGES?\n\n"
+                << "\t(Y)ES or (N)O: ";
+            cin >> exitChoice;
+            makeUC(exitChoice);
+            exitChoice = exitChoice.substr(0,1);
+            if (exitChoice != "Y")
             {
-                cout << "Output file opening failed.\n";
+                break;
+            }
+            else
+            {
+                cout << "\nTHANK YOU FOR USING THE VEHICLE INVENTORY PROGRAM!!!\n\n"
+                    << "\tGOODBYE!\n\n";
                 in_stream.close();
-                return(-1);
+                out_stream.open(IN_FILE_NAME);              // Open the output file appending
+                if (out_stream.fail())                      // Checks to see if open function fails
+                {
+                    cout << "Output file opening failed.\n";
+                    in_stream.close();
+                    return(-1);
+                }
+                for (int ix = 0; ix < MAX_SIZE_INV; ix++)   // Store the object arrays
+                {
+                    //vehicles[ix].wrtVehicle(out_stream);
+                    out_stream << vehicles[ix];             // Use of overloaded >> operator
+                }
+                out_stream.close();
+                return (0);
             }
-            for (int ix = 0; ix < MAX_SIZE_INV; ix++)   // Store the object arrays
-            {
-                //vehicles[ix].wrtVehicle(out_stream);
-                out_stream << vehicles[ix];             // Use of overloaded >> operator
-            }
-            out_stream.close();
-            return (0);
         default:
             cout << "Illegal choice.\n";
         }
@@ -163,41 +176,6 @@ int main()
     return(0);
 }
 /***********************MEMBER FUNCTIONS***********************/
-bool Vehicle::rdVehicle(istream& rdS)                   // Reads data from the stream
-{
-    if (rdS >> vin)                                     // Checks for more entries
-    {
-        getBaseModel(vin);
-        rdS >> price >> weeksOnLot >> options;          // Fills the other 3 values from stream
-        rdS.get();                                      // Skip to new line for options
-        if (options > 0)
-        {
-            optionsPtr = new string[options];           // Create a dynamic array of options for the vehicle
-            string* sPtr = optionsPtr;                  // Preserve value of optionsPtr for later deletion
-            for (int ix = 0; ix < options; ix++)
-            {
-                getline(rdS, *sPtr);
-                sPtr++;
-            }
-        }
-        return (true);                                  // Returns true if reads in another set
-    }
-    return (false);                                     // No other entries exist, Return FALSE
-}
-void Vehicle::wrtVehicle(ostream& wrtS) const           // Writes data to a stream
-{
-    wrtS << vin << "\t" << price << "\t" 
-        << weeksOnLot << "\t" << options << "\n";
-    if (options > 0)                                    // If options exist...
-    {
-        string* sPtr = optionsPtr;
-        for (int ix = 0; ix < options; ix++)            // ...for each...
-        {
-            wrtS << *sPtr << endl;                      // ...send it to stream...
-            sPtr++;                                     // ...and advance to next row of options
-        }
-    }
-}
 string Vehicle::getVin()                                // Accessor Function
 {
     return(vin);
@@ -309,12 +287,12 @@ void operator ++(Vehicle& car1)                         // Friend function incre
 {
     car1.weeksOnLot += 1;
 }
-istream& operator >> (istream& rdS, Vehicle& v)         // Overloaded >>
+istream& operator >> (istream& rdS, Vehicle& v)         // Overloaded >> operator
 {
     rdS >> v.vin >> v.price
         >> v.weeksOnLot >> v.options;                   // Fills the other 3 values from stream
     v.getBaseModel(v.vin);
-    rdS.get();                                          // Skip to new line for options
+    rdS.get();                                          // 'Eat' the \n character
     if (v.options > 0)
     {
         v.optionsPtr = new string[v.options];           // Create a dynamic array of options for the vehicle
@@ -327,7 +305,7 @@ istream& operator >> (istream& rdS, Vehicle& v)         // Overloaded >>
     }
     return (rdS);
 }
-ostream& operator << (ostream& wrtS, const Vehicle& v)
+ostream& operator << (ostream& wrtS, const Vehicle& v)  // Overloaded << operator
 {
     wrtS << v.vin << "\t" << v.price << "\t"
         << v.weeksOnLot << "\t" << v.options << "\n";
@@ -348,7 +326,11 @@ void Vehicle::getBaseModel(string& vin)
     baseModel = vin.substr(0, 3);
 }
 /***********************NON-MEMBER FUNCTIONS***********************/
-void viewInv1(Vehicle* pointer, int max)                // The 1) View Inventory menu choice
+// This Function;
+// - Takes an array of objects of type Vehicle and the integer of those objects that are filled in memory
+// - Outputs the object's data to the ostream one by one
+// - Ignores 'empty' objects
+void viewInv1(Vehicle* pointer, int max, ostream& oS)   // The 1) View Inventory menu choice
 {
     std::cout << std::fixed;
     std::cout << std::setprecision(2);
@@ -360,11 +342,17 @@ void viewInv1(Vehicle* pointer, int max)                // The 1) View Inventory
         {
             return;
         }
-        (*pointer).wrtVehicle(cout);
-        //pointer->wrtVehicle(cout);                    // Alternate Syntax
+        oS << (*pointer);                               // Use of overloaded << operator
     }
 }
-void addToInv2(Vehicle v[], int& count)                 // The 2) New Entry menu choice
+// This Function;
+// - Takes an array of objects of type Vehicle and the integer of those objects that are filled in memory
+// - Compares ineger of filled to max allowed, informs the user if inventory is full
+// - If space is available, prompts the user for VIN and optionally PRICE data for the new entry
+// - Fills the 'blank' object with the new data
+// - Outputs the object data to the ostream
+// - Increments to the next blank object in the array
+void addToInv2(Vehicle v[], int& count, ostream& oS)    // The 2) New Entry menu choice
 {
     std::cout << std::fixed;
     std::cout << std::setprecision(2);
@@ -381,16 +369,16 @@ void addToInv2(Vehicle v[], int& count)                 // The 2) New Entry menu
     makeUC(vin);                                        // Ensure data entered matches inventpory
     if (vin.length() != MAX_SIZE_VIN)                   // Error checking
     {
-        cout << "Invalid VIN entered.\n";
+        cout << "\n\tInvalid VIN entered.\n";
         return;
     }
     cout << "Do you know the price of the vehicle?\n1) YES\n0) NO\n\n\tChoice: ";
     cin >> choice;
-    cout << "VIN\t\tPRICE\t\tWEEKS\tOPTIONS\n";         // Table Formatting
     if (choice == 0)
     {
         v[count].updateVin(vin);
-        v[count].wrtVehicle(cout);
+        cout << "VIN\t\tPRICE\t\tWEEKS\tOPTIONS\n";     // Table Formatting
+        oS << v[count];                                 // Use of overloaded << operator
         count++;
     }
     else if (choice == 1)
@@ -400,7 +388,8 @@ void addToInv2(Vehicle v[], int& count)                 // The 2) New Entry menu
         cout << endl;
         v[count].updateVin(vin);
         v[count].updatePrice(price);
-        v[count].wrtVehicle(cout);
+        cout << "VIN\t\tPRICE\t\tWEEKS\tOPTIONS\n";     // Table Formatting
+        oS << v[count];                                 // Use of overloaded << operator
         count++;
     }
     else
@@ -409,7 +398,12 @@ void addToInv2(Vehicle v[], int& count)                 // The 2) New Entry menu
         return;
     }
 }
-void updateInv3(Vehicle* pointer, int max)              // The 3) Update Entry menu choice.
+// This Function;
+// - Takes an array of objects of type Vehicle from memory and the max size of the list being used
+// - Updates the weeksOnLot for each object in the array by 1
+// - Outputs each object to the ostream
+// - Ignores 'empty' objects
+void updateInv3(Vehicle* pointer, int max, ostream& oS) // The 3) Update Entry menu choice.
 {
     std::cout << std::fixed;
     std::cout << std::setprecision(2);
@@ -422,11 +416,15 @@ void updateInv3(Vehicle* pointer, int max)              // The 3) Update Entry m
             return;
         }
         ++(*pointer);
-        (*pointer).wrtVehicle(cout);
-        //pointer->wrtVehicle(cout);                    // Alternate Syntax
+        oS << (*pointer);                               // Use of overloaded << operator
     }
 }
-void searchInv4(Vehicle v[], string& searchForVIN)      // The 4) Search Inventory menu choice.
+// This Function;
+// - Takes an array of objects of type Vehicle from memory and a 3 character string from the user
+// - Compares the first 3 characters in the VIN variable of each object to the string
+// - If a match is found, for each it is output to the ostream
+// - If no match is found, the user is informed via the ostream
+void searchInv4(Vehicle v[], string& searchForVIN, ostream& oS) // The 4) Search Inventory menu choice.
 {
     std::cout << std::fixed;
     std::cout << std::setprecision(2);
@@ -442,25 +440,23 @@ void searchInv4(Vehicle v[], string& searchForVIN)      // The 4) Search Invento
     {
         if (compareModel(v[ix], searchVehicle))
         {
-            v[ix].wrtVehicle(cout);
+            oS << v[ix];                                // Use of overloaded << operator
             count++;
         }
-        //if (v[ix]==searchVehicle)                     // Alternate Syntax
-        //{
-        //    v[ix].wrtVehicle(cout);
-        //}
     }
     if (count == 0)
     {
         cout << "\nNo matches found in inventory for VIN\t" << searchForVIN << " .\n\n";
     }
 }
-void makeUC(string& vin)                                // Uppercases the first 3 letters of string input
+// This Function;
+// - Takes a string variable & uppercases each letter of the string individually
+void makeUC(string& word)                               // Uppercases the letters of string input
 {
-    int count = (int)vin.length();
+    int count = (int)word.length();
     for (; count-- > 0;)
     {
-        vin[count] = toupper(vin[count]);
+        word[count] = toupper(word[count]);
     }
 }
 
