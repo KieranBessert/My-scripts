@@ -11,6 +11,8 @@
 // - The integer NUMBER OF WEEKS the vehicle has been on the lot
 // - The integer number of additional OPTIONS the vehicle has
 // See "Vehicle.cpp" for the implementation
+// Coded by Kieran Bessert 4/26/2020
+// Last edited 5/28/2020
 #ifndef VEHICLE_H
 #define VEHICLE_H
 /***********************LIBRARIES***********************/
@@ -519,6 +521,8 @@ void makeUC(string& word)                                   // Uppercases the le
 
 // This is the Vehicle.cpp file, the implementation file for the class "Vehicle".
 // See "Vehicle.h" file for the interface definition.
+// Coded by Kieran Bessert 4/26/2020
+// Last edited 5/28/2020
 #include <iostream>
 #include <fstream>                                      // File I/O
 #include <string>                                       // use of Strings
