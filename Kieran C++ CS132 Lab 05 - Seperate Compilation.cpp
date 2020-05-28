@@ -18,7 +18,7 @@
 /***********************LIBRARIES***********************/
 // A Vehicle Object functions only if standard string objects
 // are manipulable, so the <string> file must be included.
-#include <string>                                   // use of Strings
+#include <string>                                           // use of Strings
 using namespace std;
 namespace Vehicle_Kieran
 {
@@ -26,7 +26,7 @@ namespace Vehicle_Kieran
     class Vehicle
     {
     public:
-        string getVin();                                // Vin Accessor Function
+        string getVin();                                    // Vin Accessor Function
         // This member function retrieves a string from storage.
         // The retrieved string is sent as the return value of 
         // the function.
@@ -36,7 +36,7 @@ namespace Vehicle_Kieran
         // that can call this function.
         // POSTCONDITION: A 9 character string object is the
         // return value of the function call.
-        void updateVin(string);                         // Vin Mutator Function
+        void updateVin(string);                             // Vin Mutator Function
         // This member function places a string to storage.
         // The string argument is placed as the new value
         // for the VIN variable. After the string is stored 
@@ -49,7 +49,7 @@ namespace Vehicle_Kieran
         // that can call this function.
         // POSTCONDITION: An object with a newly stored string
         // value in the VIN variable.
-        double getPrice();                              // Price Accessor Function
+        double getPrice();                                  // Price Accessor Function
         // This member function retrieves a double from storage.
         // the retrieved double is sent as the return value of 
         // the function.
@@ -59,7 +59,7 @@ namespace Vehicle_Kieran
         // that can call this function.
         // POSTCONDITION: A double object is the
         // return value of the function call.
-        void updatePrice(double);                       // Price Mutator Function
+        void updatePrice(double);                           // Price Mutator Function
         // This member function places a double to storage.
         // The double argument is placed as the new value
         // for the PRICE variable
@@ -69,7 +69,7 @@ namespace Vehicle_Kieran
         // that can call this function.
         // POSTCONDITION: An object with a newly stored double
         // value in the PRICE variable.
-        int getWeeksOnLot();                            // WeeksOnLot Accessor Function
+        int getWeeksOnLot();                                // WeeksOnLot Accessor Function
         // This member function retrieves a integer from storage.
         // the retrieved integer is sent as the return value of 
         // the function.
@@ -79,7 +79,7 @@ namespace Vehicle_Kieran
         // that can call this function.
         // POSTCONDITION: A integer object is the
         // return value of the function call.
-        void updateWeeksOnLot(int);                     // WeeksOnLot Mutator Function
+        void updateWeeksOnLot(int);                         // WeeksOnLot Mutator Function
         // This member function places an integer to storage.
         // The integer argument is placed as the new value
         // for the WEEKS ON LOT variable
@@ -89,14 +89,14 @@ namespace Vehicle_Kieran
         // that can call this function.
         // POSTCONDITION: An object with a newly stored integer
         // value in the WEEKS ON LOT variable.
-        Vehicle();                                      // Default Constructor
+        Vehicle();                                          // Default Constructor
         // The default constructor does nothing more than ensure
         // that the private variables are initialized to NULL/zero Values,
         // indicating that the container is empty and available for data.
         // PRECONDITIONS: This .h file included in source file,
         // and the "Kieran Bessert - Lab 5 - Separate Compilation.cpp" linked during build.
         // POSTCONDITION: An object created, available to recieve data for storage.
-        Vehicle(string);                                // Single Argument Constructor
+        Vehicle(string);                                    // Single Argument Constructor
         // The 1-argument constructor accepts a string variable of 9 characters.
         // The string itself is not altered, and the given string will be stored
         // in the private member string variable VIN. After the string is stored
@@ -107,7 +107,7 @@ namespace Vehicle_Kieran
         // Argument must be an existing variable of the type string.
         // POSTCONDITIONS: An object created, with the argument stored in the VIN variable,
         // available to recieve additional data for storage.
-        Vehicle(string, double);                        // Double Argument Constructor
+        Vehicle(string, double);                            // Double Argument Constructor
         // The 2-argument constructor accepts a string variable of 9 characters,
         // and a double variable of any size.
         // Neither are altered, and the given string and double will be stored in
@@ -119,20 +119,20 @@ namespace Vehicle_Kieran
         // Arguments must be an existing variable of the type string and double.
         // POSTCONDITIONS: An object created, with the argument stored in the VIN variable
         // and PRICE variable respectively, available to recieve additional data for storage.
-        Vehicle(const Vehicle&);                        // Copy Constructor
+        Vehicle(const Vehicle&);                            // Copy Constructor
         // A Vehicle object may be passed by value to a function and
         // a function may return an object of class Vehicle.
         // Anonymous copies of a Vehicle object will be constructed, used,
         // and destructed automatically at runtime to support
         // such handle of Vehicle objects by the user.
-        ~Vehicle();                                     // Destructor
+        ~Vehicle();                                         // Destructor
         // The destructor returns dynamic memory to the freestore
         // and sets private variables to indicate an empty container.
         // PRECONDITIONS: This .h file included in source file,
         // and the "Kieran Bessert - Lab 5 - Separate Compilation.cpp" linked during build.
         // POSTCONDITIONS: If Vehicle object remains in scope, 
         // its private variables indicate an empty container
-        void operator =(const Vehicle&);                // Overloaded = operator for dynamic arrays
+        void operator =(const Vehicle&);                    // Overloaded = operator for dynamic arrays
         // An object of class Vehicle may be assigned as the value of another
         // object of class Vehicle by placing the assignment operator " = "
         // between the two.
@@ -146,7 +146,7 @@ namespace Vehicle_Kieran
         // If the left side object had existing content prior to assignment,
         // that content is lost, and the dynamic storage associated with
         // that content is returned to the freestore.
-        friend bool compareModel(Vehicle&, Vehicle&);   // Friend function compare base model
+        friend bool compareModel(Vehicle&, Vehicle&);       // Friend function compare base model
         // The BASE MODEL of an object of class Vehicle may be compared to 
         // the BASE MODEL of another object of class Vehicle by supplying
         // the 2 objects as arguments to this function.
@@ -155,7 +155,7 @@ namespace Vehicle_Kieran
         // Two objects of class Vehicle in existence, both with initialized VIN variables.
         // POSTCONDITIONS: A boolian value is returned based on the equality of the
         // BASE MODEL variable of both objects. Both objects remained unchanged.
-        friend bool operator ==(Vehicle&, Vehicle&);    // Friend function compare base model
+        friend bool operator ==(Vehicle&, Vehicle&);        // Friend function compare base model
         // The BASE MODEL of an object of class Vehicle may be compared to 
         // the BASE MODEL of another object of class Vehicle by placing one 
         // of each of the objects to the left and right side of the " == " operator.
@@ -164,7 +164,7 @@ namespace Vehicle_Kieran
         // Two objects of class Vehicle in existence, both with initialized VIN variables.
         // POSTCONDITIONS: A boolian value is returned based on the equality of the
         // BASE MODEL variable of both objects. Both objects remained unchanged.
-        friend void operator ++(Vehicle&);              // Friend function increment WEEKS ON LOT
+        friend void operator ++(Vehicle&);                  // Friend function increment WEEKS ON LOT
         // The WEEKS ON LOT variable of an object of class Vehicle may be
         // incremented by 1 by placing the Vehicle object to the right of the 
         // " ++ " operator.
@@ -200,16 +200,16 @@ namespace Vehicle_Kieran
         // There are 6 private variables used to implement the Vehicle container,
         // and none are accessible or mutable to the user. They are used solely
         // for internal implementation of the functionality of an object.
-        string vin;                                     // The vehicle ID number
-        string baseModel;                               // The first 3 characters of the VIN
-        double price;                                   // The current asking price for the vehicle
-        int weeksOnLot;                                 // How many weeks the vehicle has been inventoried
-        int options;                                    // How many options each vehicle has
-        string* optionsPtr;                             // Points to the dynamic array of list of options
+        string vin;                                         // The vehicle ID number
+        string baseModel;                                   // The first 3 characters of the VIN
+        double price;                                       // The current asking price for the vehicle
+        int weeksOnLot;                                     // How many weeks the vehicle has been inventoried
+        int options;                                        // How many options each vehicle has
+        string* optionsPtr;                                 // Points to the dynamic array of list of options
         // There exists 1 private member function used to implement the vehicle container,
         // and it is non-accessible to the user. This function is used solely for extracting
         // the first 3 characters of the VIN variable and placing those values as the BASE MODEL
-        void getBaseModel(string&);                     // Internal Private Helper Function
+        void getBaseModel(string&);                         // Internal Private Helper Function
         // This private member function is used to obtain the BASE MODEL variable of 
         // objects of type Vehicle. It is automatically called by the 1 and 2 argument
         // constructors, the VIN mutator, and the instream opterator when a 9 character 
@@ -222,7 +222,7 @@ namespace Vehicle_Kieran
         // the BASE MODEL private member variable.
     };
 }
-#endif					                            // !VEHICLE_H
+#endif					                                    // !VEHICLE_H
 
 //*****************************************************************************************************************************
 //*Kieran C++ CS132 Lab 05 - Seperate Compilation.cpp**************************************************************************
@@ -248,19 +248,19 @@ namespace
     const int MAX_SIZE_VIN = 9;                             // the size of array WITHIN each object
 }
 /***********************NON-MEMBER FUNCTIONS***********************/
-void viewInv1(Vehicle*, int max, ostream& oS);
+void viewInv1(Vehicle*, int max);
 // This function reads input data from an array and displays it on screen
 // PRECONTDITION: An array of objects of type Vehicle
 // POSTCONDITION: cout statement of the VIN, PRICE, & WEEKS ON LOT data contained in each object
-void addToInv2(Vehicle v[], int& count, ostream& oS);
+void addToInv2(Vehicle v[], int& count);
 // This function edits the last empty object in an array to fill its data
 // PRECONTDITION: An empty object in the array, and New VIN, PRICE, WEEKS ON LOT data required for inputing by user
 // POSTCONDITION: An object in the array containing this information, and the array count incremented
-void updateInv3(Vehicle*, int max, ostream& oS);
+void updateInv3(Vehicle*, int max);
 // This function increments all filled array's WEEKS ON LOT
 // PRECONTDITION: An array of objects with VIN data
 // POSTCONDITION: All filled arrays with their WEEKS ON LOT incremented by 1
-void searchInv4(Vehicle v[], string& searchForVIN, ostream& oS);
+void searchInv4(Vehicle v[], string& searchForVIN);
 // This function searches the filled array for a VIN value entered by the user
 // PRECONTDITION: A filled array of VIN data and the first 3 values of VIN data a user wishes to search for
 // POSTCONDITION: If match is found in the array, that objects data printed to screen
@@ -309,13 +309,13 @@ int main()
         switch (menuChoice)
         {
         case 1:                                             // View contents of input file
-            viewInv1(vPtr, MAX_SIZE_INV, cout);
+            viewInv1(vPtr, MAX_SIZE_INV);
             break;
         case 2:                                             // Add entry to input file
-            addToInv2(vehicles, arrayCount, cout);
+            addToInv2(vehicles, arrayCount);
             break;
         case 3:                                             // Edit Entry of input file
-            updateInv3(vPtr, MAX_SIZE_INV, cout);
+            updateInv3(vPtr, MAX_SIZE_INV);
             cout << "\nWEEKS ON LOT has been updated for each vehicle in inventory;\n\n";
             break;
         case 4:                                             // Search input file
@@ -324,7 +324,7 @@ int main()
             cin >> vinSearch;
             cout << endl;
             makeUC(vinSearch);
-            searchInv4(vehicles, vinSearch, cout);
+            searchInv4(vehicles, vinSearch);
             break;
         case 5:
             cout << "\n\nEnter the positions of the 2 vehicles to be swapped.\n"
@@ -385,7 +385,7 @@ int main()
 // - Takes an array of objects of type Vehicle and the integer of those objects that are filled in memory
 // - Outputs the object's data to the ostream one by one
 // - Ignores 'empty' objects
-void viewInv1(Vehicle* pointer, int max, ostream& oS)       // The 1) View Inventory menu choice
+void viewInv1(Vehicle* pointer, int max)                    // The 1) View Inventory menu choice
 {
     std::cout << std::fixed;
     std::cout << std::setprecision(2);
@@ -397,7 +397,7 @@ void viewInv1(Vehicle* pointer, int max, ostream& oS)       // The 1) View Inven
         {
             return;
         }
-        oS << (*pointer);                                   // Use of overloaded << operator
+        cout << (*pointer);                                 // Use of overloaded << operator
     }
 }
 // This Function;
@@ -407,7 +407,7 @@ void viewInv1(Vehicle* pointer, int max, ostream& oS)       // The 1) View Inven
 // - Fills the 'blank' object with the new data
 // - Outputs the object data to the ostream
 // - Increments to the next blank object in the array
-void addToInv2(Vehicle v[], int& count, ostream& oS)        // The 2) New Entry menu choice
+void addToInv2(Vehicle v[], int& count)                     // The 2) New Entry menu choice
 {
     std::cout << std::fixed;
     std::cout << std::setprecision(2);
@@ -433,7 +433,7 @@ void addToInv2(Vehicle v[], int& count, ostream& oS)        // The 2) New Entry 
     {
         v[count].updateVin(vin);
         cout << "VIN\t\tPRICE\t\tWEEKS\tOPTIONS\n";         // Table Formatting
-        oS << v[count];                                     // Use of overloaded << operator
+        cout << v[count];                                   // Use of overloaded << operator
         count++;
     }
     else if (choice == 1)
@@ -444,7 +444,7 @@ void addToInv2(Vehicle v[], int& count, ostream& oS)        // The 2) New Entry 
         v[count].updateVin(vin);
         v[count].updatePrice(price);
         cout << "VIN\t\tPRICE\t\tWEEKS\tOPTIONS\n";         // Table Formatting
-        oS << v[count];                                     // Use of overloaded << operator
+        cout << v[count];                                   // Use of overloaded << operator
         count++;
     }
     else
@@ -458,7 +458,7 @@ void addToInv2(Vehicle v[], int& count, ostream& oS)        // The 2) New Entry 
 // - Updates the weeksOnLot for each object in the array by 1
 // - Outputs each object to the ostream
 // - Ignores 'empty' objects
-void updateInv3(Vehicle* pointer, int max, ostream& oS)     // The 3) Update Entry menu choice.
+void updateInv3(Vehicle* pointer, int max)                  // The 3) Update Entry menu choice.
 {
     std::cout << std::fixed;
     std::cout << std::setprecision(2);
@@ -471,7 +471,7 @@ void updateInv3(Vehicle* pointer, int max, ostream& oS)     // The 3) Update Ent
             return;
         }
         ++(*pointer);
-        oS << (*pointer);                                   // Use of overloaded << operator
+        cout << (*pointer);                                 // Use of overloaded << operator
     }
 }
 // This Function;
@@ -479,7 +479,7 @@ void updateInv3(Vehicle* pointer, int max, ostream& oS)     // The 3) Update Ent
 // - Compares the first 3 characters in the VIN variable of each object to the string
 // - If a match is found, for each it is output to the ostream
 // - If no match is found, the user is informed via the ostream
-void searchInv4(Vehicle v[], string& searchForVIN, ostream& oS) // The 4) Search Inventory menu choice.
+void searchInv4(Vehicle v[], string& searchForVIN)          // The 4) Search Inventory menu choice.
 {
     std::cout << std::fixed;
     std::cout << std::setprecision(2);
@@ -495,7 +495,7 @@ void searchInv4(Vehicle v[], string& searchForVIN, ostream& oS) // The 4) Search
     {
         if (compareModel(v[ix], searchVehicle))
         {
-            oS << v[ix];                                    // Use of overloaded << operator
+            cout << v[ix];                                  // Use of overloaded << operator
             count++;
         }
     }
@@ -524,11 +524,11 @@ void makeUC(string& word)                                   // Uppercases the le
 // Coded by Kieran Bessert 4/26/2020
 // Last edited 5/28/2020
 #include <iostream>
-#include <fstream>                                      // File I/O
-#include <string>                                       // use of Strings
-#include <cstdlib>                                      // use of exit() function
-#include <iomanip>                                      // use of setprecision()
-#include "Kieran Bessert Vehicle.h"                     // use of Vehicle class
+#include <fstream>                                          // File I/O
+#include <string>                                           // use of Strings
+#include <cstdlib>                                          // use of exit() function
+#include <iomanip>                                          // use of setprecision()
+#include "Kieran Bessert Vehicle.h"                         // use of Vehicle class
 using namespace std;
 namespace Vehicle_Kieran
 {
