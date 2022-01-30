@@ -1,30 +1,37 @@
 #!/bin/bash
 # Read IP Addresses From Separated CSV File
 # Writen by Kieran Bessert 1/28/2022
-# Last Updated 1/28/2022
+# Last Updated 1/29/2022
 # ------------------------------------------
 
 INPUT=mdl.csv
 OLDIFS=$IFS
 IFS=','
-# Check for file input
+
 [ ! -f $INPUT ] && { echo "$INPUT file not found"; exit -1; }
 
-if [ -f mdl.list ]
-then
-	echo "File Exists"
-	ls
-else
-	> mdl.list
-fi
+echo "Script Running"
 
-while read lastUpdate domain ipAddr domain2 exploit a b c d
+> mdl.list
+> a.list
+> b.list
+
+grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}" $INPUT >> a.list
+
+while read ipAddr
 do
-	if ! grep "$ipAddr" mdl.list 
+	count=$(grep -o $ipAddr a.list | wc -l)
+	if [ "$count" -gt 127 ]
+   	then
+   		count=127
+   	fi
+	if ( ! grep $ipAddr b.list )
 	then
-   		count=$(grep -o "$ipAddr" mdl.csv | wc -l)
-   		echo "$ipAddr $count" >> mdl.list
+   		echo "$ipAddr,1,$count" >> b.list
  	fi
-done < $INPUT
+done < a.list
+rm a.list
+grep -v -E "(^127\.)([0-9]{1,3}[\.]){2}[0-9]{1,3}" b.list >> mdl.list
+rm b.list
 IFS=$OLDIFS
 echo "Script Complete"
