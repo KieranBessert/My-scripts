@@ -1,0 +1,18 @@
+SELECT * FROM ae_b_loc_d 
+WHERE bldg = "####"
+AND location_code = "###a";
+
+SELECT * FROM ae_kac_access_point
+WHERE ap_id LIKE "#######a%";
+
+SELECT * FROM ae_kac_lock
+WHERE ap_id LIKE "#######a%";
+
+SELECT * FROM ae_kac_core
+WHERE ap_id LIKE "#######a%";
+
+SELECT * FROM ae_kac_key_core
+WHERE ap_id LIKE "#######a%";
+
+SELECT * FROM ae_kac_lock_udf
+WHERE ap_id lIKE "#######a%";
